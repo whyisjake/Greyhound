@@ -2,6 +2,13 @@ doctype html
 html
   head
     title= title
+
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+
+    include form.jade
+
+    footer
+        script(src="http://code.jquery.com/jquery-2.1.1.min.js")
+        script(src="/javascripts/forms.js")
