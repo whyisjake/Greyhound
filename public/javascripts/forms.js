@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){
-	console.log('Jake was here.');
 	jQuery('.submit').click(function(e) {
 
 		console.log('Clicked!');
