@@ -6,10 +6,7 @@ jQuery(document).ready(function(){
 		// Keep the button from being clicked
 		e.preventDefault();
 
-		var $inputs = $('.addVideo :input'),
-			form = {
-				action : 'add_video'
-			};
+		var $inputs = $('.addVideo :input');
 
 		$inputs.each(function() {
 			form[this.name] = $(this).val();
