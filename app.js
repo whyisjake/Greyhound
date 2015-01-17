@@ -23,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
+app.get('/submit', routes.submit);
 app.get('/video/:id', routes.video);
 app.get('/videos', routes.videos.all);
 app.get('/videos/:id', routes.videos.one);

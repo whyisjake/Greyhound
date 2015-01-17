@@ -6,6 +6,10 @@ exports.index = function(req, res) {
 	});
 };
 
+exports.submit = function(req, res) {
+	res.render('submit');
+};
+
 
 // Let's start the videos.
 exports.videos = {};
@@ -33,8 +37,8 @@ exports.videos.one = function(req, res) {
  * POST a new player
  */
 exports.videos.create = function(req, res) {
-	res.json(req.body);
-	db.videos.save(req.body);
+	var send = db.videos.save(req.body);
+	res.json(send);
 };
 
 exports.video = function(req, res) {
