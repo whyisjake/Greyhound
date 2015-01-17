@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hammer.js examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 1em;
+    }
+
+    body > a {
+      background-color: #333;
+      color: white;
+      display: inline-block;
+      padding: 1em;
+      text-decoration: none;
+    }
+
+    body > a:hover {
+      background-color: orange;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 300;
+      letter-spacing: 1px;
+      margin-top: 2em;
+      text-transform: uppercase;
+    }
+
+  </style>
+</head>
+<body>
+
+
+<style>
+
+ol {
+    padding: 0;
+    max-width: 24em;
+    margin-top: 3em;
+    list-style-type: none;
+}
+
+li {
+    position: relative;
+    background-color: #ff0000;
+    color: white;
+    text-transform: uppercase;
+    height:300px;
+    font-size: 1.125em;
+    letter-spacing: 1px;
+    font-weight: 300;
+    text-align: center;
+    padding: 1.5em;
+    margin-top: 0.75em;
+}
+
+li:nth-child(2) { background-color: #ff3300; }
+li:nth-child(3) { background-color: #ff6600; }
+li:nth-child(4) { background-color: #ff9900; }
+li:nth-child(5) { background-color: #ffcc00; }
+
+</style>
+
+<h1>Greyhound</h1>
+
+<ol>
+    <li class="embedly video1"></li>
+    <li class="embedly video2"></li>
+    <li class="embedly video3"></li>
+    <li class="embedly video4"></li>
+    <li class="embedly video5"></li>
+</ol>
+
+<!-- Include hammer.js library -->
+<script src="http://aleszu.com/videohack/hammer2.js"></script>
+<script>
+    // Initialize the good old webDevBreak namespace
+    var webDevBreak = {};
+
+    webDevBreak.prepareForTouches = function() {
+
+        function dragElement(event) {
+            var elementToDrag = event.target;
+            // deltaX tracks the distance dragged along the x-axis since the initial touch.
+            elementToDrag.style.left = event.gesture.deltaX + 'px';
+        };
+
+        function deleteElement(event) {
+            var elementToDelete = event.target;
+            // Stop detecting touches on element when it's no longer needed. Can prevent odd behaviour.
+            event.gesture.stopDetect();
+            elementToDelete.style.display = 'none';
+        };
+
+        function resetElement(event) {
+            var elementToReset = event.target;
+            elementToReset.style.left = 0;
+        };
+
+        // Swipe options as recommended by:
+        // https://github.com/EightMedia/hammer.js/wiki/Tips-&-Tricks#horizontal-swipe-and-drag
+        var swipeOptions = { dragLockToAxis: true, dragBlockHorizontal: true };
+        function initTouchListeners(touchableElement) {
+            var touchControl = new Hammer(touchableElement, swipeOptions);
+            touchControl.on("dragright", dragElement)
+                    .on("swiperight", deleteElement)
+                    .on("release", resetElement);
+        };
+
+        var listItems = document.querySelectorAll('li');
+        for (var i = 0; i < listItems.length; i += 1) {
+            initTouchListeners(listItems[i]);
+        }
+    }
+    webDevBreak.prepareForTouchesWhenReady = function() {
+        document.addEventListener("DOMContentLoaded", webDevBreak.prepareForTouches);
+    };
+
+    webDevBreak.prepareForTouchesWhenReady();
+
+</script>
+
+
+
+</body>
+</html>
