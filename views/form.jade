@@ -1,12 +1,10 @@
 form.addVideo
-	label Name
-		input(name="title")
-	br
-	label URL
-		input(name="url")
-	br
-	label User Name
-		input(name="username")
+  .form-group
+    label(for="title") Name of Video
+    input(type="input" name="title" class="form-control" id="title" placeholder="Title of Video")
 
-	br
-	button.submit Submit
+  .form-group
+    label(for="URL") URL
+    input(type="url" name="url" class="form-control" id="URL" placeholder="URL of Video")
+
+  button(type="submit" class="submit btn btn-success") Submit

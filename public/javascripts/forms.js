@@ -6,11 +6,14 @@ jQuery(document).ready(function(){
 		// Keep the button from being clicked
 		e.preventDefault();
 
-		var $inputs = $('.addVideo :input');
+		var $inputs = $('.addVideo :input'),
+			form = {};
 
 		$inputs.each(function() {
 			form[this.name] = $(this).val();
 		});
+
+		console.log(form);
 
 		// Make the ajax request with the form data.
 		$.ajax({
