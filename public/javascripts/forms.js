@@ -27,27 +27,21 @@ jQuery(document).ready(function(){
 
 	});
 
-	jQuery('.search-reddit .submit').click(function(e) {
+	jQuery('#subreddit-submit').click(function(e) {
 
 		console.log('Clicked!');
 
 		// Keep the button from being clicked
 		e.preventDefault();
 
-		var $inputs = $('.addVideo :input'),
-			form = {};
+		var subreddit = $('#subreddit-search').val();
 
-		$inputs.each(function() {
-			form[this.name] = $(this).val();
-		});
-
-		console.log(form);
+		console.log( subreddit );
 
 		// Make the ajax request with the form data.
 		$.ajax({
-			url: '/videos',
-			data: form,
-			type: 'POST',
+			url: subreddit,
+			type: 'GET',
 			success: function(res) {
 				console.log( res );
 			}
