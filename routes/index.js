@@ -42,8 +42,9 @@ exports.videos.one = function(req, res) {
  * POST a new player
  */
 exports.videos.create = function(req, res) {
-	res.json(req.body);
-	db.videos.save(req.body);
+	db.videos.save(req.body, function(err, doc){
+		res.json(doc);
+	});
 };
 
 exports.video = function(req, res) {
