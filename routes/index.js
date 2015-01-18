@@ -22,7 +22,7 @@ exports.reddit = {};
 exports.reddit.one = function(req, res) {
 
 	// Let's set some things up.
-	var slug = req.params.slug;
+	var slug = req.params.slug,
 		endpoint = 'http://reddit.com/r/',
 		url = endpoint + slug + '.json';
 
@@ -31,7 +31,7 @@ exports.reddit.one = function(req, res) {
 		function( error, response, body ) {
 
 			// Setup some vars
-			var posts = body.data.children
+			var posts = body.data.children,
 				return_posts = [];
 
 			// Loop through each item, add the videos to the database,
@@ -47,7 +47,7 @@ exports.reddit.one = function(req, res) {
 				// And save the object to the db.
 				db.videos.save( posts[i].data, function(err, doc){
 					return_posts.push(doc);
-				});
+				})
 			}
 
 			// Why is this returning an empty array? Maybe @rosspat knows...
