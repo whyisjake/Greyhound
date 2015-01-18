@@ -1,0 +1,24 @@
+ion-pane(ng-controller="CardsCtrl")
+
+    .reddit
+      h3 You like Reddit? What not browse one of your favorite subreddits?
+
+      form.search-reddit.form-inline
+        .form-group
+          input(name="subreddit" id="subreddit-search" class="form-control" placeholder="/r/videos")
+        &nbsp;
+        .form-group
+          input(type="submit" id="subreddit-submit" ng-click="click" class="btn btn-default")
+
+    ion-header-bar(class="bar-default")
+      h1(class="title") TD Cards
+
+    td-cards
+      td-card(ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}")
+        div(class="image" ng-controller="CardCtrl")
+          div(class="no-text") NOPE
+          //- This works.
+          //- img(ng-src="{{card.data.thumbnail}}")
+          img(ng-src="{{card.data.media.oembed.thumbnail_url}}")
+          //- .embed(ng-bind-html="{{card.data.media_embed.content}}")
+          div(class="yes-text") LIKE
