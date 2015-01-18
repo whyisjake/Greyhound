@@ -69,7 +69,7 @@ exports.video = function(req, res) {
 
 			obj = api.oembed({url: url}, function(err, objs) {
 
-				video.embed = objs[0].html;
+				video.embed = objs[0];
 
 				// Did we get the embed?
 				console.log(video.embed);
