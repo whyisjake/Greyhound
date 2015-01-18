@@ -1,52 +1,39 @@
 extends layout
 
+block content
+  h1= 'New to Greyhound? Let\'s get started.'
 
+  p.hot Want to see what's hot?
 
-mixin displayLink(templateName, isImplemented)
-    tr
-    -if (isImplemented) {
-        th
-            a(href='/template/#{templateName}')= templateName
-        th
-            a(href='http://twbs.github.io/bootstrap/examples/#{templateName}')= templateName
-    -}
-    - else {
-        th
-            | #{templateName}
-            b
-                | &nbsp;- not implemented yet
-        th
-            a(href='http://twbs.github.io/bootstrap/examples/#{templateName}')= templateName
-    -}
+  a(href="/watch" class="btn btn-default") Watch
 
+  .youtube
+    h3 Maybe, want to browse things from your favorite YouTube user?
 
-block body
+    form.search-user.form-inline
+      .form-group
+        input(name="user" class="form-control" placeholder="whyisjake or PewDiePie")
+      &nbsp;
+      .form-group
+        input(type="submit" class="btn btn-default")
 
-    p.lead
-        | All bootstrap 3 templates have been converted into Jade templates; enjoy !
+    h4.suggest Or search for something cool?
 
-    table.table.table-condensed
-        thead
-            tr
-                th Jade version
-                th HTML version
-        tbody
-            +displayLink('blog', true)
-            +displayLink('carousel', true)
-            +displayLink('cover', true)
-            +displayLink('dashboard', true)
-            +displayLink('grid', true)
-            +displayLink('jumbotron', true)
-            +displayLink('jumbotron-narrow', true)
-            +displayLink('justified-nav', true)
-            +displayLink('navbar', true)
-            +displayLink('navbar-fixed-top', true)
-            +displayLink('navbar-static-top', true)
-            +displayLink('non-responsive', true)
-            +displayLink('offcanvas', true)
-            +displayLink('signin', true)
-            +displayLink('starter-template', true)
-            +displayLink('sticky-footer', true)
-            +displayLink('sticky-footer-navbar', true)
-            +displayLink('theme', true)
-            +displayLink('tooltip-viewport', true)
+    form.search-youtube.form-inline
+      .form-group
+        input(name="search" type="search" class="form-control" placeholder="Search")
+        &nbsp;
+      .form-group
+        input(type="submit" class="btn btn-default")
+
+  .reddit
+    h3 You like Reddit? What not browse one of your favorite subreddits?
+
+    form.search-user.form-inline
+      .form-group
+        input(name="user" class="form-control" placeholder="/r/videos")
+      &nbsp;
+      .form-group
+        input(type="submit" class="btn btn-default")
+
+  include form.jade
