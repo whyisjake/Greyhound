@@ -1,7 +1,7 @@
 ion-pane(ng-controller="CardsCtrl")
 
     .reddit
-      h3 You like Reddit? What not browse one of your favorite subreddits?
+      h3 You like Reddit?
 
       form.search-reddit.form-inline
         .form-group
@@ -19,6 +19,6 @@ ion-pane(ng-controller="CardsCtrl")
           div(class="no-text") NOPE
           //- This works.
           //- img(ng-src="{{card.data.thumbnail}}")
-          img(ng-src="{{card.data.media.oembed.thumbnail_url}}")
+          img(ng-src="{{card.data.url}}")
           //- .embed(ng-bind-html="{{card.data.media_embed.content}}")
           div(class="yes-text") LIKE
