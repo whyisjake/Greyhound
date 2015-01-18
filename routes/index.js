@@ -49,18 +49,18 @@ exports.reddit.one = function(req, res) {
 
 					// And save the object to the db.
 					db.videos.save( posts[i].data, function(err, doc){
-						console.log('Added: ' + posts[i].data.title );
 						return_posts.push(doc);
-					})
-
+						if ( i === 1 ) {
+							res.json(return_posts);
+						};
+					});
 				} else {
 					console.warn( 'Skipped: ' + posts[i].data.title );
+					if ( i === 1 ) {
+						res.json(return_posts);
+					};
 				}
-			};
-
-			// Why is this returning an empty array? Maybe @rosspat knows...
-			// Prolly some async bullshi
-			res.json(return_posts);
+			}
 		}
 	);
 
