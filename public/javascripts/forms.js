@@ -27,26 +27,4 @@ jQuery(document).ready(function(){
 
 	});
 
-	jQuery('#subreddit-submit').click(function(e) {
-
-		console.log('Clicked!');
-
-		// Keep the button from being clicked
-		e.preventDefault();
-
-		var subreddit = $('#subreddit-search').val();
-
-		console.log( subreddit );
-
-		// Make the ajax request with the form data.
-		$.ajax({
-			url: subreddit,
-			type: 'GET',
-			success: function(res) {
-				console.log( res );
-			}
-		});
-
-	});
-
 });
