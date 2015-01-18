@@ -23,8 +23,8 @@ head
     script(src="http://code.ionicframework.com/contrib/ionic-contrib-tinder-cards/ionic.tdcards.js")
     script(src="/javascripts/cards.js")
 
-body(ng-app="starter")
-    .navbar.navbar-inverse.navbar-fixed-top
+body(ng-app="starter" no-scroll="")
+    .navbar.navbar-inverse.navbar-fixed-bottom
         .container
             .navbar-header
                 button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -40,6 +40,15 @@ body(ng-app="starter")
                         a(href='/submit') Submit Video
                     li
                         a(href='/help') Help
+
+                form.navbar-form.navbar-right
+                  .row
+                    .form-group
+                      input(name="subreddit" id="subreddit-search" class="form-control .col-md-8" placeholder="/r/videos")
+                    &nbsp;
+                    .form-group
+                      input(type="submit" id="subreddit-submit" ng-click="click" class="btn btn-default .col-md-4")
+
 
     .container
 
