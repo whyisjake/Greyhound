@@ -24,16 +24,8 @@ block content
         input(name="search" type="search" class="form-control" placeholder="Search")
       &nbsp;
       .form-group
-        input(type="submit" class="btn btn-default submit")
+        input(type="submit" class="btn btn-default")
 
-  .reddit
-    h3 You like Reddit? What not browse one of your favorite subreddits?
-
-    form.search-reddit.form-inline
-      .form-group
-        input(name="subreddit" id="subreddit-search" class="form-control" placeholder="/r/videos")
-      &nbsp;
-      .form-group
-        input(type="submit" id="subreddit-submit" class="btn btn-default submit")
+  include cards.jade
 
   include form.jade
