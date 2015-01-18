@@ -1,17 +1,8 @@
 ion-pane(ng-controller="CardsCtrl")
 
-    .reddit
-      h3 You like Reddit?
-
-      form.search-reddit.form-inline
-        .form-group
-          input(name="subreddit" id="subreddit-search" class="form-control" placeholder="/r/videos")
-        &nbsp;
-        .form-group
-          input(type="submit" id="subreddit-submit" ng-click="click" class="btn btn-default")
-
-    ion-header-bar(class="bar-default")
-      h1(class="title") TD Cards
+  ion-header-bar(class="bar-default")
+    //- img(src="images/greyhound.gif" alt="greyhound - faster video" style="text-align:center" class="center")
+    h1.center Greyhound
 
     td-cards
       td-card(ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}")
