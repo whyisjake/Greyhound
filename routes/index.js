@@ -2,6 +2,8 @@ var db = require("../database.js");
 var embedly = require('embedly');
 var util = require('util');
 var request = require('request');
+var Q = require('q');
+var deferred = Q.defer();
 
 exports.index = function(req, res) {
 	res.render('index', {
@@ -25,44 +27,46 @@ exports.reddit.one = function(req, res) {
 	var slug = req.params.slug,
 		endpoint = 'http://reddit.com/r/',
 		url = endpoint + slug + '.json';
+	var return_posts = [];
 
-	request(
-		{ url: url, json: true },
-		function( error, response, body ) {
+	// Q.fcall(
+		request(
+			{ url: url, json: true },
+			function( error, response, body ) {
 
-			// Setup some vars
-			var posts = body.data.children,
-				return_posts = [];
+				// Setup some vars
+				var posts = body.data.children;
 
-			// Loop through each item, add the videos to the database,
-			// and then put them in the new array, and send them all back.
-			for ( var i = posts.length - 1; i >= 0; i-- ) {
-				// What's the name here?
-				console.log( posts[i].data.media_embed );
+				res.json( posts );
 
-				// Since we are getting an object back, with an ID,
-				// let's use that as the global identifier.
-				posts[i].data._id = posts[i].data.id;
+				// Loop through each item, add the videos to the database,
+				// and then put them in the new array, and send them all back.
+				for ( var i = posts.length - 1; i >= 0; i-- ) {
+					// What's the name here?
+					// console.log( posts[i].data.media_embed );
 
-				// If we have something to embed, let's get it.
-				if ( typeof posts[i].data.media_embed.content != 'undefined' && posts[i].data.media_embed.content.length > 0 ) {
+					// Since we are getting an object back, with an ID,
+					// let's use that as the global identifier.
+					posts[i].data._id = posts[i].data.id;
 
-					// And save the object to the db.
-					db.videos.save( posts[i].data, function(err, doc){
-						return_posts.push(doc);
-						if ( i === 1 ) {
-							res.json(return_posts);
-						};
-					});
-				} else {
-					console.warn( 'Skipped: ' + posts[i].data.title );
-					if ( i === 1 ) {
-						res.json(return_posts);
-					};
+					// If we have something to embed, let's get it.
+					if ( typeof posts[i].data.media_embed.content != 'undefined' && posts[i].data.media_embed.content.length > 0 ) {
+
+						// And save the object to the db.
+						db.videos.save( posts[i].data, function(err, doc){
+							// console.log(err);
+							// console.log(doc);
+							return_posts.push(doc);
+						})
+					} else {
+						console.warn( 'Skipped: ' + posts[i].data.title );
+					}
 				}
 			}
-		}
-	);
+		)
+	// )
+	// .then( console.log( return_posts ) )
+	// .done( res.json(return_posts) );
 
 };
 
@@ -88,6 +92,7 @@ exports.videos.all = function(req, res) {
  */
 exports.videos.one = function(req, res) {
 	db.videos.findOne({ "_id" : req.params.id }, function(err, video) {
+		console.log(video);
 		if(err) return;
 		res.json(video);
 	});
