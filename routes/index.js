@@ -1,6 +1,7 @@
 var db = require("../database.js");
 var embedly = require('embedly');
 var util = require('util');
+var request = require('request');
 
 exports.index = function(req, res) {
 	res.render('index', {
@@ -11,6 +12,52 @@ exports.index = function(req, res) {
 exports.submit = function(req, res) {
 	res.render('submit');
 };
+
+// Let's start the videos.
+exports.reddit = {};
+
+/*
+ * GET collection of videos from one subreddit
+ */
+exports.reddit.one = function(req, res) {
+
+	// Let's set some things up.
+	var slug = req.params.slug;
+		endpoint = 'http://reddit.com/r/',
+		url = endpoint + slug + '.json';
+
+	request(
+		{ url: url, json: true },
+		function( error, response, body ) {
+
+			// Setup some vars
+			var posts = body.data.children
+				return_posts = [];
+
+			// Loop through each item, add the videos to the database,
+			// and then put them in the new array, and send them all back.
+			for ( var i = posts.length - 1; i >= 0; i-- ) {
+				// What's the name here?
+				console.log( posts[i].data.title );
+
+				// Since we are getting an object back, with an ID,
+				// let's use that as the global identifier.
+				posts[i].data._id = posts[i].data.id;
+
+				// And save the object to the db.
+				db.videos.save( posts[i].data, function(err, doc){
+					return_posts.push(doc);
+				});
+			}
+
+			// Why is this returning an empty array? Maybe @rosspat knows...
+			// Prolly some async bullshi
+			res.json(return_posts);
+		}
+	);
+
+};
+
 
 
 // Let's start the videos.
