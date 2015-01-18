@@ -79,7 +79,7 @@ exports.videos.all = function(req, res) {
  * GET one video
  */
 exports.videos.one = function(req, res) {
-	db.videos.findOne({ "_id" : db.ObjectId(req.params.id) }, function(err, video) {
+	db.videos.findOne({ "_id" : req.params.id }, function(err, video) {
 		if(err) return;
 		res.json(video);
 	});
@@ -95,7 +95,7 @@ exports.videos.create = function(req, res) {
 };
 
 exports.video = function(req, res) {
-	db.videos.findOne({ "_id" : db.ObjectId(req.params.id) }, function(err, video) {
+	db.videos.findOne({ "_id" : req.params.id }, function(err, video) {
 
 		if (video.embed) {
 			res.render('single', {
