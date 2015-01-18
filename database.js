@@ -4,7 +4,7 @@ var dbUrl = "mongodb://PnUNoXnxdsxT:dfEVbcHFAFmw@mongosoup-cont002.mongosoup.de:
 // DEV URL
 // var dbUrl = "greyhound"
 
-var collections = ["videos", "links"];
+var collections = ["videos", "links", "subreddits"];
 
 var db = require("mongojs").connect(dbUrl, collections);
 module.exports = db;
