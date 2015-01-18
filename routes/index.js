@@ -48,6 +48,13 @@ exports.videos.create = function(req, res) {
 
 exports.video = function(req, res) {
 	db.videos.findOne({ "_id" : db.ObjectId(req.params.id) }, function(err, video) {
+
+		if (video.embed) {
+			res.render('single', {
+				post: video
+			});
+		}
+
 		if(err) return;
 
 		var EMBEDLY_KEY = 'f8fe2d9f411b4bac9d6b89454b1c4ebc';
