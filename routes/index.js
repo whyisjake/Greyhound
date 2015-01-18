@@ -38,17 +38,25 @@ exports.reddit.one = function(req, res) {
 			// and then put them in the new array, and send them all back.
 			for ( var i = posts.length - 1; i >= 0; i-- ) {
 				// What's the name here?
-				console.log( posts[i].data.title );
+				console.log( posts[i].data.media_embed );
 
 				// Since we are getting an object back, with an ID,
 				// let's use that as the global identifier.
 				posts[i].data._id = posts[i].data.id;
 
-				// And save the object to the db.
-				db.videos.save( posts[i].data, function(err, doc){
-					return_posts.push(doc);
-				})
-			}
+				// If we have something to embed, let's get it.
+				if ( typeof posts[i].data.media_embed.content != 'undefined' && posts[i].data.media_embed.content.length > 0 ) {
+
+					// And save the object to the db.
+					db.videos.save( posts[i].data, function(err, doc){
+						console.log('Added: ' + posts[i].data.title );
+						return_posts.push(doc);
+					})
+
+				} else {
+					console.warn( 'Skipped: ' + posts[i].data.title );
+				}
+			};
 
 			// Why is this returning an empty array? Maybe @rosspat knows...
 			// Prolly some async bullshi
